@@ -1,0 +1,94 @@
+{
+  "consumer": {
+    "name": "Consumer"
+  },
+  "provider": {
+    "name": "Weather Forecast API"
+  },
+  "interactions": [
+    {
+      "description": "a POST request to set a forecast",
+      "request": {
+        "method": "post",
+        "path": "/weatherforecast/1",
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "date": "2020-05-05T20:22:07.6105686+01:00",
+          "summary": "Warm",
+          "temperatureC": 15,
+          "temperatureF": 58
+        },
+        "matchingRules": {
+          "$.path": {
+            "match": "regex",
+            "regex": "\\/weatherforecast\\/\\d+"
+          },
+          "$.body.date": {
+            "match": "type"
+          },
+          "$.body.summary": {
+            "match": "type"
+          },
+          "$.body.temperatureC": {
+            "match": "type"
+          },
+          "$.body.temperatureF": {
+            "match": "type"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        }
+      }
+    },
+    {
+      "description": "a GET request to retrieve the forecasts",
+      "request": {
+        "method": "get",
+        "path": "/weatherforecast",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": [
+          {
+            "date": "2020-05-05T20:22:07.8382511+01:00",
+            "summary": "Warm",
+            "temperatureC": 15
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          },
+          "$.body[*].date": {
+            "match": "type"
+          },
+          "$.body[*].summary": {
+            "match": "type"
+          },
+          "$.body[*].temperatureC": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
