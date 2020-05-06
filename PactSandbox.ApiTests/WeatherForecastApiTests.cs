@@ -27,7 +27,7 @@ namespace PactSandbox.ApiTests
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseUrls(_pactServiceUri);
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<ProviderStateStartupWrapper>();
                     webBuilder.UseKestrel();
                 })
                 .Build();
@@ -52,6 +52,7 @@ namespace PactSandbox.ApiTests
 
             IPactVerifier pactVerifier = new PactVerifier(config);
             pactVerifier
+                .ProviderState($"{_pactServiceUri}/provider-states")
                 .ServiceProvider("Weather Forecast API", _pactServiceUri)
                 .HonoursPactWith("Consumer")
                 .PactUri(@"..\..\..\..\PactSandbox.ClientTests\pacts\consumer-weather_forecast_api.json")

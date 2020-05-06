@@ -15,7 +15,7 @@
           "Content-Type": "application/json; charset=utf-8"
         },
         "body": {
-          "date": "2020-05-05T20:22:07.6105686+01:00",
+          "date": "2020-05-06T13:16:48.0947+01:00",
           "summary": "Warm",
           "temperatureC": 15,
           "temperatureF": 58
@@ -61,7 +61,7 @@
         },
         "body": [
           {
-            "date": "2020-05-05T20:22:07.8382511+01:00",
+            "date": "2020-05-06T13:16:48.2810111+01:00",
             "summary": "Warm",
             "temperatureC": 15
           }
@@ -82,6 +82,44 @@
           "$.body[*].temperatureC": {
             "match": "type"
           }
+        }
+      }
+    },
+    {
+      "description": "a DELETE request to set a forecast",
+      "providerState": "no forecast with id '1'",
+      "request": {
+        "method": "delete",
+        "path": "/weatherforecast/1",
+        "matchingRules": {
+          "$.path": {
+            "match": "regex",
+            "regex": "\\/weatherforecast\\/\\d+"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+        }
+      }
+    },
+    {
+      "description": "a DELETE request to set a forecast",
+      "providerState": "a forecast to delete with id '1'",
+      "request": {
+        "method": "delete",
+        "path": "/weatherforecast/1",
+        "matchingRules": {
+          "$.path": {
+            "match": "regex",
+            "regex": "\\/weatherforecast\\/\\d+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
         }
       }
     }

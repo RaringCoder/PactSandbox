@@ -68,5 +68,24 @@ namespace PactSandbox.Client
                 throw new Exception(response.ReasonPhrase);
             }
         }
+
+        public bool DeleteForecast(int forecastId)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/weatherforecast/{forecastId}");
+
+            var response = _client.SendAsync(request).Result;
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception(response.ReasonPhrase);
+            }
+
+            return true;
+        }
     }
 }
